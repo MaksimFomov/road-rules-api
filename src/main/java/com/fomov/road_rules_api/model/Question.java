@@ -8,7 +8,6 @@ import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -30,12 +29,9 @@ public class Question {
     @Column(name = "type")
     private QuestionType type;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "question_id")
     private Set<Answer> answers = new LinkedHashSet<>();
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "topic_id")
-    private Topic topic;
 
     @Override
     public final boolean equals(Object o) {

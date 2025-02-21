@@ -26,6 +26,11 @@ public class Topic {
     @Column(name = "total_questions", nullable = false)
     private int totalQuestions;
 
-    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "topic_id")
     private Set<Question> questions = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "topic", orphanRemoval = true)
+    private Set<TestResult> testResults = new LinkedHashSet<>();
+
 }

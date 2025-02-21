@@ -25,10 +25,6 @@ public class Answer {
     @Column(name = "is_correct", nullable = false)
     private boolean isCorrect;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
-    private Question question;
-
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
