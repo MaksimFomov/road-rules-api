@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface TopicService {
     List<Topic> getAllTopics();
+
+    Topic getTopicById(long id);
+
+    Topic changeTopicById(long id, Topic updatedTopic);
+
+    void deleteTopicById(long id);
 }

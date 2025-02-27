@@ -33,6 +33,10 @@ public class Question {
     @JoinColumn(name = "question_id")
     private Set<Answer> answers = new LinkedHashSet<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
@@ -41,7 +45,7 @@ public class Question {
         Class<?> thisEffectiveClass = this instanceof HibernateProxy proxy ? proxy.getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
         Question question = (Question) o;
-        return id != null && Objects.equals(id, question.id);
+        return getId() != null && Objects.equals(getId(), question.getId());
     }
 
     @Override

@@ -19,4 +19,23 @@ public class TopicServiceImpl implements TopicService {
     public List<Topic> getAllTopics() {
         return topicRepository.findAll();
     }
+
+    @Override
+    public Topic getTopicById(long id) {
+        return topicRepository.findById(id)
+                .orElseThrow();
+    }
+
+    @Override
+    public Topic changeTopicById(long id, Topic updatedTopic) {
+        Topic existTopic = getTopicById(id);
+        existTopic.setName(updatedTopic.getName());
+        existTopic.setTotalQuestions(updatedTopic.getTotalQuestions());
+        return topicRepository.save(existTopic);
+    }
+
+    @Override
+    public void deleteTopicById(long id) {
+        topicRepository.delete(getTopicById(id));
+    }
 }
