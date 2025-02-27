@@ -9,5 +9,9 @@ public interface AnswerService {
 
     Answer getAnswerById(long id);
 
+    Answer addAnswer(Answer answer);
 
+    Answer changeAnswerById(long id, Answer changedAnswer);
+
+    void deleteAnswerById(long id);
 }

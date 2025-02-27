@@ -29,8 +29,7 @@ public class Question {
     @Column(name = "type")
     private QuestionType type;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "question_id")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Answer> answers = new LinkedHashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

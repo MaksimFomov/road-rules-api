@@ -25,4 +25,23 @@ public class AnswerServiceImpl implements AnswerService {
         return answerRepository.findById(id)
                 .orElseThrow();
     }
+
+    @Override
+    public Answer addAnswer(Answer answer) {
+        return answerRepository.save(answer);
+    }
+
+    @Override
+    public Answer changeAnswerById(long id, Answer changedAnswer) {
+        Answer existAnswer = getAnswerById(id);
+        existAnswer.setText(changedAnswer.getText());
+        existAnswer.setCorrect(changedAnswer.isCorrect());
+        existAnswer.setQuestion(changedAnswer.getQuestion());
+        return null;
+    }
+
+    @Override
+    public void deleteAnswerById(long id) {
+        answerRepository.delete(getAnswerById(id));
+    }
 }

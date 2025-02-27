@@ -33,6 +33,10 @@ public class TestResult {
     @Column(name = "time_spent", nullable = false)
     private int timeSpent;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;

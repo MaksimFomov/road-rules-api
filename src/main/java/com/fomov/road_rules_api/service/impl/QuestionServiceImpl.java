@@ -30,11 +30,16 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public Question changeQuestionById(long id, Question updatedQuestion) {
+    public Question addQuestion(Question question) {
+        return questionRepository.save(question);
+    }
+
+    @Override
+    public Question changeQuestionById(long id, Question changedQuestion) {
         Question existQuestion = getQuestionById(id);
-        existQuestion.setText(updatedQuestion.getText());
-        existQuestion.setType(updatedQuestion.getType());
-        existQuestion.setTopic(updatedQuestion.getTopic());
+        existQuestion.setText(changedQuestion.getText());
+        existQuestion.setType(changedQuestion.getType());
+        existQuestion.setTopic(changedQuestion.getTopic());
         return questionRepository.save(existQuestion);
     }
 

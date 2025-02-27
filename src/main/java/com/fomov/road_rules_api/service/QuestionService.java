@@ -12,7 +12,9 @@ public interface QuestionService {
 
     List<Question> getQuestionsByTopicId(long topicId);
 
-    Question changeQuestionById(long id, Question updatedQuestion);
+    Question addQuestion(Question question);
+
+    Question changeQuestionById(long id, Question changedQuestion);
 
     void deleteQuestionById(long id);
 }

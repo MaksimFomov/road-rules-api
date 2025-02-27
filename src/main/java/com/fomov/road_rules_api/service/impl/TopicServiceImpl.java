@@ -27,10 +27,15 @@ public class TopicServiceImpl implements TopicService {
     }
 
     @Override
-    public Topic changeTopicById(long id, Topic updatedTopic) {
+    public Topic addTopic(Topic topic) {
+        return topicRepository.save(topic);
+    }
+
+    @Override
+    public Topic changeTopicById(long id, Topic changedTopic) {
         Topic existTopic = getTopicById(id);
-        existTopic.setName(updatedTopic.getName());
-        existTopic.setTotalQuestions(updatedTopic.getTotalQuestions());
+        existTopic.setName(changedTopic.getName());
+        existTopic.setTotalQuestions(changedTopic.getTotalQuestions());
         return topicRepository.save(existTopic);
     }
 

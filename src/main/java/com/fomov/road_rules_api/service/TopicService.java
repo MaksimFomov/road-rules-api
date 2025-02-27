@@ -9,7 +9,9 @@ public interface TopicService {
 
     Topic getTopicById(long id);
 
-    Topic changeTopicById(long id, Topic updatedTopic);
+    Topic addTopic(Topic topic);
+
+    Topic changeTopicById(long id, Topic changedTopic);
 
     void deleteTopicById(long id);
 }
