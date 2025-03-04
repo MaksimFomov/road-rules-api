@@ -3,5 +3,5 @@ package com.fomov.road_rules_api.dto;
 /**
  * DTO for {@link com.fomov.road_rules_api.model.User}
  */
-public record RegistrationRequestDTO(String username, String password) {
+public record RegistrationRequestDto(String username, String password) {
 }
