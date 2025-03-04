@@ -1,7 +1,6 @@
 package com.fomov.road_rules_api.service;
 
 import com.fomov.road_rules_api.model.Question;
-import com.fomov.road_rules_api.model.Topic;
 
 import java.util.List;
 

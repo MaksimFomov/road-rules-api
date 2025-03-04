@@ -3,9 +3,11 @@ package com.fomov.road_rules_api.service.impl;
 import com.fomov.road_rules_api.model.Question;
 import com.fomov.road_rules_api.repository.QuestionRepository;
 import com.fomov.road_rules_api.service.QuestionService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class QuestionServiceImpl implements QuestionService {
     private final QuestionRepository questionRepository;
 

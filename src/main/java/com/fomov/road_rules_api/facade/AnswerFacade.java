@@ -1,15 +1,18 @@
 package com.fomov.road_rules_api.facade;
 
+import com.fomov.road_rules_api.dto.AnswerRequestDto;
+import com.fomov.road_rules_api.dto.AnswerResponseDto;
+
 import java.util.List;
 
 public interface AnswerFacade {
-    List<AnswerRequestResponseDto> getAllAnswers();
+    List<AnswerResponseDto> getAllAnswers();
 
-    AnswerRequestResponseDto getAnswerById(long id);
+    AnswerResponseDto getAnswerById(long id);
 
-    AnswerRequestResponseDto addAnswer(AnswerRequestResponseDto answerRequestResponseDto);
+    AnswerResponseDto addAnswer(AnswerRequestDto answerRequestDto);
 
-    AnswerRequestResponseDto changeAnswerById(long id, AnswerRequestResponseDto changedAnswerRequestResponseDto);
+    AnswerResponseDto changeAnswerById(long id, AnswerRequestDto changedAnswerRequestDto);
 
     void deleteAnswerById(long id);
 }

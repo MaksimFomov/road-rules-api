@@ -1,12 +1,15 @@
 package com.fomov.road_rules_api.mapper;
 
+import com.fomov.road_rules_api.dto.TopicRequestDto;
 import com.fomov.road_rules_api.dto.TopicResponseDto;
 import com.fomov.road_rules_api.model.Topic;
 import org.mapstruct.*;
 
+import java.util.Collection;
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
-public interface TopicResponseMapper {
-    Topic toEntity(TopicResponseDto topicResponseDto);
+public interface TopicMapper {
+    Topic toEntity(TopicRequestDto topicRequestDto);
 
     @AfterMapping
     default void linkQuestions(@MappingTarget Topic topic) {
@@ -19,4 +22,6 @@ public interface TopicResponseMapper {
     }
 
     TopicResponseDto toTopicResponseDto(Topic topic);
+
+    Collection<TopicResponseDto> toTopicResponseDtos(Collection<Topic> topic);
 }
