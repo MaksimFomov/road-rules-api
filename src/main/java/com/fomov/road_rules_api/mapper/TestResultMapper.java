@@ -3,7 +3,10 @@ package com.fomov.road_rules_api.mapper;
 import com.fomov.road_rules_api.dto.TestResultRequestDto;
 import com.fomov.road_rules_api.dto.TestResultResponseDto;
 import com.fomov.road_rules_api.model.TestResult;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.Collection;
 
