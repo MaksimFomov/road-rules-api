@@ -3,6 +3,9 @@ package com.fomov.road_rules_api.configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -34,48 +37,19 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .formLogin(form -> form
-                        .loginProcessingUrl("/api/auth/login")
-                        .successHandler(loginSuccessHandler())
-                        .failureHandler(loginFailureHandler())
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/api/auth/logout")
-                        .logoutSuccessHandler(logoutSuccessHandler())
-                        .permitAll()
-                )
                 .userDetailsService(userDetailsService)
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                );
+                .httpBasic(Customizer.withDefaults());
 
         return http.build();
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    private AuthenticationSuccessHandler loginSuccessHandler() {
-        return (request, response, authentication) -> {
-            response.setStatus(HttpStatus.OK.value());
-            response.getWriter().write("Login successful");
-        };
-    }
-
-    private AuthenticationFailureHandler loginFailureHandler() {
-        return (request, response, exception) -> {
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("Login failed: " + exception.getMessage());
-        };
-    }
-
-    private LogoutSuccessHandler logoutSuccessHandler() {
-        return (request, response, authentication) -> {
-            response.setStatus(HttpStatus.OK.value());
-            response.getWriter().write("Logout successful");
-        };
     }
 }

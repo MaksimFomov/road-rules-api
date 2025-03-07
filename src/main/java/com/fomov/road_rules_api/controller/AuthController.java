@@ -1,11 +1,14 @@
 package com.fomov.road_rules_api.controller;
 
-import com.fomov.road_rules_api.dto.RegistrationRequestDto;
+import com.fomov.road_rules_api.dto.LoginRegistrationRequestDto;
 import com.fomov.road_rules_api.dto.UserResponseDto;
 import com.fomov.road_rules_api.facade.UserFacade;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,14 +22,28 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserResponseDto> registerUser(
-            @RequestBody RegistrationRequestDto registrationRequestDto) {
-        UserResponseDto createdUser = userFacade.registerUser(registrationRequestDto);
+            @RequestBody LoginRegistrationRequestDto loginRegistrationRequestDto) {
+        UserResponseDto createdUser = userFacade.registerUser(loginRegistrationRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRegistrationRequestDto loginRegistrationRequestDto, HttpServletRequest request) {
+        try {
+            userFacade.loginUser(loginRegistrationRequestDto, request);
+
+            return ResponseEntity.ok("Успешный вход");
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Неверное имя пользователя или пароль");
+        }
+    }
+
     @GetMapping("/me")
-    public ResponseEntity<UserResponseDto> currentUser(Authentication authentication) {
-        UserResponseDto user = (UserResponseDto) authentication.getPrincipal();
-        return ResponseEntity.ok(user);
+    public ResponseEntity<?> getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            return ResponseEntity.ok(authentication.getPrincipal());
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Пользователь не аутентифицирован");
     }
 }

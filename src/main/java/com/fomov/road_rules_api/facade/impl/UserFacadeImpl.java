@@ -1,10 +1,11 @@
 package com.fomov.road_rules_api.facade.impl;
 
-import com.fomov.road_rules_api.dto.RegistrationRequestDto;
+import com.fomov.road_rules_api.dto.LoginRegistrationRequestDto;
 import com.fomov.road_rules_api.dto.UserResponseDto;
 import com.fomov.road_rules_api.facade.UserFacade;
 import com.fomov.road_rules_api.mapper.UserMapper;
 import com.fomov.road_rules_api.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,11 +19,16 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public UserResponseDto registerUser(RegistrationRequestDto registrationRequestDto) {
+    public UserResponseDto registerUser(LoginRegistrationRequestDto loginRegistrationRequestDto) {
         return userMapper.toUserResponseDto(
                 userService.registerUser(
-                        userMapper.toEntity(registrationRequestDto)
+                        userMapper.toEntity(loginRegistrationRequestDto)
                 )
         );
+    }
+
+    @Override
+    public void loginUser(LoginRegistrationRequestDto loginRegistrationRequestDto, HttpServletRequest request) {
+
     }
 }
