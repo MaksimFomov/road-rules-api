@@ -1,5 +1,6 @@
 package com.fomov.road_rules_api.service.impl;
 
+import com.fomov.road_rules_api.exception.QuestionNotFoundException;
 import com.fomov.road_rules_api.model.Question;
 import com.fomov.road_rules_api.repository.QuestionRepository;
 import com.fomov.road_rules_api.service.QuestionService;
@@ -23,7 +24,7 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public Question getQuestionById(long id) {
         return questionRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new QuestionNotFoundException("Question not found with ID: " + id));
     }
 
     @Override

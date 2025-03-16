@@ -1,5 +1,6 @@
 package com.fomov.road_rules_api.service.impl;
 
+import com.fomov.road_rules_api.exception.AnswerNotFoundException;
 import com.fomov.road_rules_api.model.Answer;
 import com.fomov.road_rules_api.repository.AnswerRepository;
 import com.fomov.road_rules_api.service.AnswerService;
@@ -23,7 +24,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Override
     public Answer getAnswerById(long id) {
         return answerRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new AnswerNotFoundException("Answer not found with ID: " + id));
     }
 
     @Override
@@ -37,7 +38,7 @@ public class AnswerServiceImpl implements AnswerService {
         existAnswer.setText(changedAnswer.getText());
         existAnswer.setCorrect(changedAnswer.isCorrect());
         existAnswer.setQuestion(changedAnswer.getQuestion());
-        return null;
+        return answerRepository.save(existAnswer);
     }
 
     @Override

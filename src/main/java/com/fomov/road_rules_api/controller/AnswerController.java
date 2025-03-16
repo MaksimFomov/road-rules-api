@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/answers")
+@RequestMapping("/admin/answers")
 public class AnswerController {
     private final AnswerFacade answerFacade;
 

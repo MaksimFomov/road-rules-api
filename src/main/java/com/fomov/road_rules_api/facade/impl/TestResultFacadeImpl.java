@@ -1,5 +1,6 @@
 package com.fomov.road_rules_api.facade.impl;
 
+import com.fomov.road_rules_api.dto.TestResultRequestDto;
 import com.fomov.road_rules_api.dto.TestResultResponseDto;
 import com.fomov.road_rules_api.facade.TestResultFacade;
 import com.fomov.road_rules_api.mapper.TestResultMapper;
@@ -29,6 +30,15 @@ public class TestResultFacadeImpl implements TestResultFacade {
     public TestResultResponseDto getTestResultById(long id) {
         return testResultMapper.toTestResultResponseDto(
                 testResultService.getTestResultById(id)
+        );
+    }
+
+    @Override
+    public TestResultResponseDto processTestResults(TestResultRequestDto testResultRequestDto) {
+        return testResultMapper.toTestResultResponseDto(
+                testResultService.processTestResults(
+                        testResultMapper.toEntity(testResultRequestDto), testResultRequestDto.userResponses()
+                )
         );
     }
 }

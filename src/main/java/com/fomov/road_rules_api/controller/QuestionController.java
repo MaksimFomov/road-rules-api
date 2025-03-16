@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/admin/questions")
 public class QuestionController {
     private final QuestionFacade questionFacade;
 

@@ -1,5 +1,6 @@
 package com.fomov.road_rules_api.service.impl;
 
+import com.fomov.road_rules_api.exception.TopicNotFoundException;
 import com.fomov.road_rules_api.model.Topic;
 import com.fomov.road_rules_api.repository.TopicRepository;
 import com.fomov.road_rules_api.service.TopicService;
@@ -23,7 +24,7 @@ public class TopicServiceImpl implements TopicService {
     @Override
     public Topic getTopicById(long id) {
         return topicRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new TopicNotFoundException("Topic not found with ID: " + id));
     }
 
     @Override
